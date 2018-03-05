@@ -4,8 +4,19 @@
   p
     strong Secret key:
     = @organization.secret_key
-
-
-  => link_to 'Edit', edit_organization_path(@organization)
-  '|
-  =< link_to 'Back', organizations_path
+  hr
+  .row
+    .col-md-6
+      h4 Add User
+      hr
+      = form_with scope: :user, url: organization_users_path(@organization) do |f|
+        .form-group
+          = f.label :email
+          = f.text_field :email, class: 'form-control'
+        = f.submit 'Add User'
+    .col-md-6
+      h4 Current Users
+      hr
+      ul#users-list
+        - @organization.users.each do |user|
+          li = user.email

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :organizations do
+    resources :users, controller: 'organization/users', only: [:create]
     resources :projects do
       resources :help_tickets, controller: 'organization/help_tickets', only: [:create]
     end

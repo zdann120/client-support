@@ -1,0 +1,5 @@
+alert('success');
+<% str = "";
+   @organization.users.each { |u| str += "<li>#{u.email}</li>" }
+ %>
+$('#users-list').html("<%= str.html_safe %>");

@@ -27,6 +27,7 @@ gem 'whenever', require: false
 gem 'bootsnap'
 gem 'simple_form'
 gem 'randexp'
+gem 'active_interaction'
 
 group :production do
   gem 'passenger'
