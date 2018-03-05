@@ -1,0 +1,24 @@
+p#notice = notice
+
+p
+  strong User:
+  = @help_ticket.user
+p
+  strong Project:
+  = @help_ticket.project
+p
+  strong Subject:
+  = @help_ticket.subject
+p
+  strong Body:
+  = @help_ticket.body
+p
+  strong Urgent:
+  = @help_ticket.urgent
+p
+  strong Status:
+  = @help_ticket.status
+
+=> link_to 'Edit', edit_help_ticket_path(@help_ticket)
+'|
+=< link_to 'Back', help_tickets_path

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151111201657) do
+ActiveRecord::Schema.define(version: 20180305051049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,41 @@ ActiveRecord::Schema.define(version: 20151111201657) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
+  create_table "help_tickets", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "project_id"
+    t.string "subject", null: false
+    t.text "body"
+    t.boolean "urgent", default: false, null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_help_tickets_on_project_id"
+    t.index ["user_id"], name: "index_help_tickets_on_user_id"
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "secret_key"
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_organizations_on_name", unique: true
+    t.index ["secret_key"], name: "index_organizations_on_secret_key", unique: true
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.bigint "organization_id"
+    t.string "title", null: false
+    t.string "secret_key"
+    t.integer "status", default: 0, null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_projects_on_organization_id"
+    t.index ["secret_key"], name: "index_projects_on_secret_key", unique: true
+    t.index ["title"], name: "index_projects_on_title", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -57,4 +92,7 @@ ActiveRecord::Schema.define(version: 20151111201657) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "help_tickets", "projects"
+  add_foreign_key "help_tickets", "users"
+  add_foreign_key "projects", "organizations"
 end

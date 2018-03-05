@@ -10,7 +10,7 @@ gem 'dotenv-rails'
 gem 'font-awesome-rails'
 gem 'friendly_id'
 gem 'gritter', git: 'https://github.com/jason-hobbs/gritter.git'
-gem 'hamlit'
+gem 'slim-rails'
 gem 'jbuilder'
 gem 'jquery-rails'
 gem 'openssl', '>=2.0.3'
@@ -24,6 +24,8 @@ gem 'turbolinks'
 gem 'uglifier'
 gem 'webpacker'
 gem 'whenever', require: false
+gem 'bootsnap'
+gem 'simple_form'
 
 group :production do
   gem 'passenger'
@@ -43,7 +45,6 @@ end
 
 group :development, :test do
   gem 'byebug'
-  gem 'minitest'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
 end

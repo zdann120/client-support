@@ -1,0 +1,31 @@
+h1 Listing help_tickets
+
+table
+  thead
+    tr
+      th User
+      th Project
+      th Subject
+      th Body
+      th Urgent
+      th Status
+      th
+      th
+      th
+
+  tbody
+    - @help_tickets.each do |help_ticket|
+      tr
+        td = help_ticket.user
+        td = help_ticket.project
+        td = help_ticket.subject
+        td = help_ticket.body
+        td = help_ticket.urgent
+        td = help_ticket.status
+        td = link_to 'Show', help_ticket
+        td = link_to 'Edit', edit_help_ticket_path(help_ticket)
+        td = link_to 'Destroy', help_ticket, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Help ticket', new_help_ticket_path

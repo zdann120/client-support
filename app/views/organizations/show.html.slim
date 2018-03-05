@@ -1,0 +1,11 @@
+.container
+  h1 = @organization.name
+  hr
+  p
+    strong Secret key:
+    = @organization.secret_key
+
+
+  => link_to 'Edit', edit_organization_path(@organization)
+  '|
+  =< link_to 'Back', organizations_path
