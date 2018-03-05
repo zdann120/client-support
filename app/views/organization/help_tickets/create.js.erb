@@ -1,0 +1,7 @@
+<% if @ticket.persisted? %>
+  alert("Ticket Created. Your confirmation code is: <%= @ticket.code %>");
+  $('#ticket_form').find('input:text, input:password, select, textarea').val('');
+  $('#ticket_form').find('input:radio, input:checkbox').prop('checked', false);
+<% else %>
+  alert("Please try again.");
+<% end %>

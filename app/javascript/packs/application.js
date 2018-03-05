@@ -7,5 +7,4 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 import 'jquery';
-import "select2";
-console.log('Hello World from Webpacker');
+import "select2/dist/js/select2.full.js";

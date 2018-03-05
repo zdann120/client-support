@@ -1,10 +1,12 @@
 class HelpTicketsController < ApplicationController
   before_action :set_help_ticket, only: [:show, :edit, :update, :destroy]
+  before_action :set_organization
+  before_action :set_project
 
   # GET /help_tickets
   # GET /help_tickets.json
   def index
-    @help_tickets = HelpTicket.all
+    @help_tickets = @project.help_tickets
   end
 
   # GET /help_tickets/1
@@ -14,7 +16,7 @@ class HelpTicketsController < ApplicationController
 
   # GET /help_tickets/new
   def new
-    @help_ticket = HelpTicket.new
+    @help_ticket = @project.help_tickets.new
   end
 
   # GET /help_tickets/1/edit
@@ -24,7 +26,7 @@ class HelpTicketsController < ApplicationController
   # POST /help_tickets
   # POST /help_tickets.json
   def create
-    @help_ticket = HelpTicket.new(help_ticket_params)
+    @help_ticket = @project.help_tickets.new(help_ticket_params)
 
     respond_to do |format|
       if @help_ticket.save
@@ -69,6 +71,14 @@ class HelpTicketsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def help_ticket_params
-      params.require(:help_ticket).permit(:user_id, :project_id, :subject, :body, :urgent, :status)
+      params.require(:help_ticket).permit(:subject, :body, :urgent, :status)
     end
+
+    def set_organization
+      @organization = Organization.find params[:organization_id]
+    end
+
+  def set_project
+    @project = Project.find params[:project_id]
+  end
 end

@@ -1,29 +1,26 @@
-h1 Listing projects
+.container
+  h1 Listing projects
 
-table
-  thead
-    tr
-      th Organization
-      th Title
-      th Secret key
-      th Status
-      th Description
-      th
-      th
-      th
-
-  tbody
-    - @projects.each do |project|
+  table.table.table-hover.table-striped
+    thead
       tr
-        td = project.organization
-        td = project.title
-        td = project.secret_key
-        td = project.status
-        td = project.description
-        td = link_to 'Show', project
-        td = link_to 'Edit', edit_project_path(project)
-        td = link_to 'Destroy', project, data: { confirm: 'Are you sure?' }, method: :delete
+        th Organization
+        th Title
+        th Status
+        th
+        th
+        th
 
-br
+    tbody
+      - @projects.each do |project|
+        tr
+          td = project.organization
+          td = project.title
+          td = project.status
+          td = link_to 'Show', [@organization, project]
+          td = link_to 'Edit', edit_organization_project_path(@organization, project)
+          td = link_to 'Destroy', [@organization, project], data: { confirm: 'Are you sure?' }, method: :delete
 
-= link_to 'New Project', new_project_path
+  br
+
+  = link_to 'New Project', new_organization_project_path(@organization)

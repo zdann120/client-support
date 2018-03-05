@@ -1,21 +1,32 @@
-p#notice = notice
+.container
+  h1 = @project.title
+  hr
+  p
+    strong Organization:
+    = @project.organization.name
+  p
+    strong Secret key:
+    = @project.secret_key
+  p
+    strong Status:
+    = @project.status
+  p
+    strong Description:
+    = @project.description
 
-p
-  strong Organization:
-  = @project.organization
-p
-  strong Title:
-  = @project.title
-p
-  strong Secret key:
-  = @project.secret_key
-p
-  strong Status:
-  = @project.status
-p
-  strong Description:
-  = @project.description
-
-=> link_to 'Edit', edit_project_path(@project)
-'|
-=< link_to 'Back', projects_path
+  hr
+  .row
+    .col-md-6
+      h4 Initiate Help Request
+      hr
+      = form_with scope: :help_ticket, url: organization_project_help_tickets_path(@organization, @project), id: 'ticket_form' do |f|
+        .form-group
+          = f.label :subject
+          = f.text_field :subject, class: 'form-control'
+        .form-group
+          = f.label :body
+          = f.text_area :body, class: 'form-control'
+        = f.submit
+    .col-md-6
+      h4 Manage Users
+      hr

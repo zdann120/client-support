@@ -14,6 +14,9 @@ class User < ActiveRecord::Base
   attr_accessor :login
   validate :validate_username
 
+  has_many :user_organizations
+  has_many :organizations, through: :user_organizations
+
   def validate_username
     if User.where(email: username).exists?
       errors.add(:username, :invalid)

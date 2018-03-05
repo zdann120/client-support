@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  resources :help_tickets
-  resources :projects
-  resources :organizations
+  resources :organizations do
+    resources :projects do
+      resources :help_tickets, controller: 'organization/help_tickets', only: [:create]
+    end
+  end
   devise_for :users, controllers: { registrations: "registrations", :passwords => "passwords" }
   root 'pages#home'
   get 'admin' => 'admin#index'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180305051049) do
+ActiveRecord::Schema.define(version: 20180305063913) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 20180305051049) do
     t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "code", null: false
+    t.index ["code"], name: "index_help_tickets_on_code", unique: true
     t.index ["project_id"], name: "index_help_tickets_on_project_id"
     t.index ["user_id"], name: "index_help_tickets_on_user_id"
   end
@@ -60,6 +62,17 @@ ActiveRecord::Schema.define(version: 20180305051049) do
     t.index ["organization_id"], name: "index_projects_on_organization_id"
     t.index ["secret_key"], name: "index_projects_on_secret_key", unique: true
     t.index ["title"], name: "index_projects_on_title", unique: true
+  end
+
+  create_table "user_organizations", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "organization_id"
+    t.boolean "admin", default: false, null: false
+    t.string "company_position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_user_organizations_on_organization_id"
+    t.index ["user_id"], name: "index_user_organizations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -95,4 +108,6 @@ ActiveRecord::Schema.define(version: 20180305051049) do
   add_foreign_key "help_tickets", "projects"
   add_foreign_key "help_tickets", "users"
   add_foreign_key "projects", "organizations"
+  add_foreign_key "user_organizations", "organizations"
+  add_foreign_key "user_organizations", "users"
 end

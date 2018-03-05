@@ -1,4 +1,4 @@
-= form_for @help_ticket do |f|
+= simple_form_for [@organization, @project, @help_ticket] do |f|
   - if @help_ticket.errors.any?
     #error_explanation
       h2 = "#{pluralize(@help_ticket.errors.count, "error")} prohibited this help_ticket from being saved:"
@@ -6,22 +6,14 @@
         - @help_ticket.errors.full_messages.each do |message|
           li = message
 
+
   .field
-    = f.label :user
-    = f.text_field :user
+    = f.input :subject
+
   .field
-    = f.label :project
-    = f.text_field :project
+    = f.input :body
+
   .field
-    = f.label :subject
-    = f.text_field :subject
-  .field
-    = f.label :body
-    = f.text_area :body
-  .field
-    = f.label :urgent
-    = f.check_box :urgent
-  .field
-    = f.label :status
-    = f.number_field :status
+    = f.input :urgent
+
   .actions = f.submit

@@ -26,6 +26,7 @@ gem 'webpacker'
 gem 'whenever', require: false
 gem 'bootsnap'
 gem 'simple_form'
+gem 'randexp'
 
 group :production do
   gem 'passenger'
